@@ -103,8 +103,6 @@ if ((video == 1) && !error1) { l0 = 118; output = t1; }
 if (video == 2) { l0 = 236; output = t3; }
 if (video == 3) { l0 = 236; output = des; }
 if (video == 4) { l0 = 0; output = oldVol; }
-led0 = l0;
-delete l0;
 print(output, TMP21);
 
 init error = error1 || error2;
@@ -112,9 +110,10 @@ define x1 as TMP21;
 define x2 as TMP22;
 define x3 as TMP23;
 if (error) { x1 = 158; x2 = 10; x3 = 10; }
-if (!(compar) && (video <= 1)) { led0 = 2; x1 = 156; x2 = 191; x3 = 2; }
+if (!(compar) && (video <= 1)) { l0 = 2; x1 = 156; x2 = 191; x3 = 2; }
 delete error1; delete error2; delete error;
-led1 = x1; led2 = x2; led3 = x3;
+led0 = l0; led1 = x1; led2 = x2; led3 = x3;
+delete l0;
 erase x1; erase x2; erase x3;
 
 erase des;
