@@ -32,12 +32,12 @@ define timerSec as TIMER_SEC;
 define timerMSec as TIMER_MSEC;
 define voltage as PWM_PERCENT;
 define compar as I5;
+init global adminTimer;
 init global oldVol;
 init global oldt2;
 init global standTimer;
 init global maxDes;
 init global minDes;
-init global adminTimer;
 init global oldt1;
 init global timer;
 
@@ -112,7 +112,7 @@ define x1 as TMP21;
 define x2 as TMP22;
 define x3 as TMP23;
 if (error) { x1 = 158; x2 = 10; x3 = 10; }
-if (compar != 0) { x1 = 156; x2 = 191; x3 = 0; }
+if (!(compar) && (video <= 1)) { led0 = 2; x1 = 156; x2 = 191; x3 = 2; }
 delete error1; delete error2; delete error;
 led1 = x1; led2 = x2; led3 = x3;
 erase x1; erase x2; erase x3;
@@ -153,7 +153,7 @@ if (timer > 0) { rele2 = 0; }
 ind4 = rele2 ? 1 : 0;
 ind1 = rele4 ? 1 : 0;
 
-if (compar != 0) { rele2 = 0; }
+if (!compar) { rele2 = 0; }
 
 s2 = rele2; s3 = 0; s4 = rele4;
 delete rele2; delete rele4;
