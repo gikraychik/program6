@@ -32,6 +32,7 @@ define timerSec as TIMER_SEC;
 define timerMSec as TIMER_MSEC;
 define voltage as PWM_PERCENT;
 define compar as I5;
+init global oldVol;
 init global oldt2;
 init global standTimer;
 init global maxDes;
@@ -39,11 +40,10 @@ init global minDes;
 init global adminTimer;
 init global oldt1;
 init global timer;
-init global oldVol;
 
 label 0;
 compar = 0;
-s1 = 0; ind2 = 1; ind3 = 0;
+ind2 = 1; ind3 = 0;
 timerMSec = 62500;
 standTimer = 750;
 adminTimer = 750;
@@ -141,7 +141,7 @@ init desired = t3;
 init rele2 = s2;
 init rele4 = s4;
 
-init tmp = inside >= desired + 1;
+init tmp = (inside >= desired + 1) && (outside >= 15);
 rele2 = tmp ? 1 : 0;
 tmp = inside <= desired - 1;
 rele4 = tmp ? 1 : 0;
@@ -153,9 +153,12 @@ if (timer > 0) { rele2 = 0; }
 ind4 = rele2 ? 1 : 0;
 ind1 = rele4 ? 1 : 0;
 
-s2 = rele2; s3 = 0; s4 = 0;
+if (compar) { rele2 = 0; }
+
+s2 = rele2; s3 = 0; s4 = rele4;
 delete rele2; delete rele4;
 delete inside;
+delete outside;
 delete desired;
 
 goto 7;
